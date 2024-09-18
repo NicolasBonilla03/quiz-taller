@@ -1,0 +1,5 @@
+<div *ngFor="let nota of materia.notas">
+    <p>{{ nota.corte }} - {{ nota.porcentaje }}%: {{ nota.calificacion }}</p>
+  </div>
+  <button (click)="actualizarNota('primerCorte', 20, 4.5)">Agregar/Actualizar Nota Primer Corte</button>
+  

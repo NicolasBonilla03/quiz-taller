@@ -15,7 +15,42 @@
   </ion-header>
 
   <div id="container">
-    <strong class="capitalize">{{ folder }}</strong>
-    <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <!-- Mostrar Semestres -->
+    <div *ngFor="let semestre of semestres">
+      <strong>{{ semestre.nombre }}</strong>
+      <ion-list>
+        <!-- Mostrar Materias dentro del Semestre -->
+        <ion-item *ngFor="let materia of semestre.materias">
+          <ion-label>
+            {{ materia.nombre }}
+            <ul>
+              <!-- Mostrar Notas dentro de cada Materia -->
+              <li *ngFor="let nota of materia.notas">
+                {{ nota.corte }}: {{ nota.calificacion }} ({{ nota.porcentaje }}%)
+              </li>
+            </ul>
+          </ion-label>
+          <ion-button color="danger" (click)="eliminarMateria(semestre.id, materia.id)">Eliminar Materia</ion-button>
+        </ion-item>
+      </ion-list>
+
+      <ion-button (click)="agregarMateria(semestre.id, materiaId, nuevaMateria)">Agregar Materia</ion-button>
+
+    </div>
+
+    <!-- Botón para agregar nuevo semestre -->
+    <ion-button expand="block" (click)="agregarSemestre()">Agregar Semestre</ion-button>
   </div>
+  <ion-item *ngFor="let semestre of semestres">
+    <ion-label>{{ semestre.nombre }}</ion-label>
+    <ion-item *ngFor="let materia of semestre.materias">
+      <!-- Mostrar información de materia aquí -->
+      <p>Promedio: {{ calcularPromedio(materia) }}</p>
+      <p *ngIf="estaAprobada(materia)">Estado: Aprobada</p>
+      <p *ngIf="!estaAprobada(materia)">Estado: No Aprobada</p>
+      <ion-button color="danger" (click)="confirmarEliminacionMateria(semestre.id, materia.id)">Eliminar</ion-button>
+    </ion-item>
+  </ion-item>
+  
+  
 </ion-content>

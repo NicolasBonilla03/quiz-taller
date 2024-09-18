@@ -1,0 +1,6 @@
+<div *ngFor="let semestre of semestres">
+    <h2>{{ semestre.nombre }}</h2>
+    <app-materias [semestre]="semestre"></app-materias>
+  </div>
+  <button (click)="agregarSemestre()">Agregar Semestre</button>
+  

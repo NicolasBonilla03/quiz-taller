@@ -1,0 +1,27 @@
+<ion-header translucent="true">
+    <ion-toolbar>
+      <ion-title>Lista de Materias</ion-title>
+      <ion-button routerLink="/home">Volver</ion-button>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content fullscreen>
+    <ion-list>
+      <ion-item *ngFor="let materia of materias">
+        <ion-label>
+          <h2>{{ materia.nombre }}</h2>
+          <p>Promedio: {{ calcularPromedio(materia) | number:'1.1-2' }}</p>
+          <p>Semestre: {{materia.semestre}}</p>
+          <p *ngIf="isMateriaAprobada(calcularPromedio(materia))" style="color: green;">Materia Aprobada</p>
+          <p *ngIf="!isMateriaAprobada(calcularPromedio(materia))" style="color: red;">Materia Reprobada</p>
+        </ion-label>
+        <!-- Botón para ver detalles de la materia -->
+        <ion-button routerLink="/materia-detail/{{materia.codigo}}">Ver detalles</ion-button>
+        <!-- Botón para confirmar la eliminación de la materia -->
+        <ion-button color="danger" (click)="confirmDeleteMateria(materia.codigo)">Eliminar</ion-button>
+      </ion-item>
+    </ion-list>
+    <ion-button routerLink="/add-materia">Agregar Materia</ion-button>
+  </ion-content>
+  
+  

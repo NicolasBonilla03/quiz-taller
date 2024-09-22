@@ -1,0 +1,40 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-title>Agregar Nota</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="agregarNota()">Guardar</ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <form>
+        <br>
+      <ion-item>
+        <ion-input type="date" [(ngModel)]="nota.fechaEntrega" name="fechaEntrega">Fecha de entrega</ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-input [(ngModel)]="nota.descripcion" name="descripcion">Descripción</ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-input type="number" [(ngModel)]="nota.nota" name="nota" min="0" max="5" step="0.01">Nota</ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-input [(ngModel)]="nota.observaciones" name="observaciones">Observaciones</ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label>Corte </ion-label>
+        <ion-select [(ngModel)]="nota.corte" name="corte">
+          <ion-select-option value="Primer 20%">Primer 20%</ion-select-option>
+          <ion-select-option value="Segundo 20%">Segundo 20%</ion-select-option>
+          <ion-select-option value="Tercer 20%">Tercer 20%</ion-select-option>
+          <ion-select-option value="40% Final">40% Final</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </form>
+  </ion-content>
+  

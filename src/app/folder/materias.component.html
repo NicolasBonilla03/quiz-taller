@@ -1,8 +1,0 @@
-<ion-item *ngFor="let materia of semestre.materias">
-    <h3>{{ materia.nombre }}</h3>
-    <button (click)="eliminarMateria(materia.id)">Eliminar</button>
-    <app-notas [materia]="materia"></app-notas>
-</ion-item>
-<button (click)="agregarMateria(semestreId, materiaId, nuevaMateria)">Agregar Materia</button>
-
-  

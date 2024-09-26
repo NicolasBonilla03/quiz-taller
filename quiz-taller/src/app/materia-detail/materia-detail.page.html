@@ -1,23 +1,31 @@
 <ion-header translucent="true">
-    <ion-toolbar>
-      <ion-title>{{ materia?.nombre }}</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-content fullscreen>
-    <ion-card *ngIf="materia">
-      <ion-card-header>
-        <ion-card-title>{{ materia.nombre }}</ion-card-title>
-        <ion-card-subtitle>Código: {{ materia.codigo }}</ion-card-subtitle>
-        <ion-card-subtitle>Semestre: {{ materia.semestre }}</ion-card-subtitle>
-      </ion-card-header>
-      <ion-card-content>
-        <p>Promedio: {{ calcularPromedio() | number:'1.1-2' }}</p>
-        <p *ngIf="isMateriaAprobada()" style="color: green;">Aprobada</p>
-        <p *ngIf="!isMateriaAprobada()" style="color: red;">Reprobada</p>
-      </ion-card-content>
-      <ion-button [routerLink]="['/add-nota', materia.codigo]">Agregar Nota</ion-button>
-    </ion-card>
+  <ion-toolbar>
+    <ion-title>{{ materia?.nombre }}</ion-title>
+    <ion-button (click)="actualizar()">Actualizar pagina</ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <ion-card *ngIf="materia">
+    <ion-card-header>
+      <ion-card-title>{{ materia.nombre }}</ion-card-title>
+      <ion-card-subtitle>Código: {{ materia.codigo }}</ion-card-subtitle>
+      <ion-card-subtitle>Semestre: {{ materia.semestre }} </ion-card-subtitle>
+      <ion-card-subtitle>Horario: {{ materia.horario }} </ion-card-subtitle>
+      <ion-card-subtitle>Observaciones {{ materia.observaciones }} </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Promedio: {{ calcularPromedio() | number:'1.1-2' }}</p>
+      <p *ngIf="isMateriaAprobada()" style="color: green;">Aprobada</p>
+      <p *ngIf="!isMateriaAprobada()" style="color: red;">Reprobada</p>
+    </ion-card-content>
+    
+    <!-- Botón para editar la materia y las notas -->
+    <ion-button routerLink="/add-nota/{{materia.codigo}}">Agregar Nota</ion-button>
+    <ion-button routerLink="/edit-materia/{{materia.codigo}}">Modificar Materia</ion-button>
+  </ion-card>
+
+  <ion-button expand="full" routerLink="/materia-list">Regresar a la lista de materias</ion-button>
   
     <ion-card *ngIf="(materia?.notas ?? []).length > 0">
 
@@ -34,12 +42,12 @@
                 <p>Observaciones: {{ nota.observaciones || 'N/A' }}</p>
                 <p>Corte: {{ nota.corte }}</p>
               </ion-label>
+              <ion-button routerLink="/edit-nota/{{materia!.codigo}}">Modificar nota</ion-button>
               <ion-button (click)="eliminarNota(materia!.codigo, i)">Eliminar</ion-button>
             </ion-item>
           </ion-list>
         </ion-card-content>
       </ion-card>
   
-    <ion-button expand="full" routerLink="/materia-list">Regresar a la lista de materias</ion-button>
   </ion-content>
   

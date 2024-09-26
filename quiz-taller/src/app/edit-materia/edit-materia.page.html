@@ -1,0 +1,38 @@
+<ion-header translucent="true">
+    <ion-toolbar>
+      <ion-title>Editar Materia</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content fullscreen>
+    <ion-card *ngIf="materia">
+      <ion-card-header>
+        <ion-card-title>Editar {{ materia.nombre }}</ion-card-title>
+      </ion-card-header>
+  
+      <ion-card-content>
+        <ion-item>
+          <ion-label position="stacked">Nombre</ion-label>
+          <ion-input [(ngModel)]="materia.nombre"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Semestre</ion-label>
+          <ion-input [(ngModel)]="materia.semestre"></ion-input>
+        </ion-item>
+  
+        <ion-item>
+          <ion-label position="stacked">Horario</ion-label>
+          <ion-input [(ngModel)]="materia.horario"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label position="stacked">Observaciones</ion-label>
+            <ion-input [(ngModel)]="materia.observaciones"></ion-input>
+          </ion-item>
+  
+        <ion-button expand="full" (click)="guardarCambios()">Guardar Cambios</ion-button>
+      </ion-card-content>
+    </ion-card>
+  </ion-content>
+  

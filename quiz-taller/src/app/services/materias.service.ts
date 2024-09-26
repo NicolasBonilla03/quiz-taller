@@ -34,12 +34,9 @@ export class MateriasService {
   async addNota(codigoMateria: string, nota: Nota) {
     const materia = this.materias.find(m => m.codigo === codigoMateria);
     if (materia) {
-      // Si la materia existe, agregamos la nota
-      if (!materia.notas) {
-        materia.notas = []; // Inicializa el array si no existe
-      }
+      materia.notas = materia.notas || [];
       materia.notas.push(nota);
-      await this.saveToStorage(); // Guarda el cambio en el almacenamiento
+      await this.saveToStorage();
     }
   }
 

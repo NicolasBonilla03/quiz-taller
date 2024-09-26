@@ -80,5 +80,9 @@ export class MateriaDetailPage implements OnInit {
         await this.materiasService.deleteNota(codigoMateria, index);
         this.materia = await (await this.materiasService.getMaterias()).find(m => m.codigo === codigoMateria);
       }
+    
+    async actualizar(){
+        window.location.reload();
+      }
       
 }

@@ -67,15 +67,4 @@ export class MateriaListPage implements OnInit {
     this.materias = await this.materiasService.getMaterias();
   }
 
-  calcularPromedio(materia: Materia): number {
-    if (materia.notas && materia.notas.length > 0) {
-      const total = materia.notas.reduce((acc, nota) => acc + (nota.nota || 0), 0);
-      return total / materia.notas.length;
-    }
-    return 0;
-  }
-
-  isMateriaAprobada(promedio: number): boolean {
-    return promedio >= 3;
-  }
 }

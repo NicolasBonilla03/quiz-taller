@@ -10,10 +10,7 @@
       <ion-item *ngFor="let materia of materias">
         <ion-label>
           <h2>{{ materia.nombre }}</h2>
-          <p>Promedio: {{ calcularPromedio(materia) | number:'1.1-2' }}</p>
           <p>Semestre: {{materia.semestre}}</p>
-          <p *ngIf="isMateriaAprobada(calcularPromedio(materia))" style="color: green;">Materia Aprobada</p>
-          <p *ngIf="!isMateriaAprobada(calcularPromedio(materia))" style="color: red;">Materia Reprobada</p>
         </ion-label>
         <ion-button routerLink="/materia-detail/{{materia.codigo}}">Ver detalles</ion-button>
         <ion-button color="danger" (click)="confirmDeleteMateria(materia.codigo)">Eliminar</ion-button>

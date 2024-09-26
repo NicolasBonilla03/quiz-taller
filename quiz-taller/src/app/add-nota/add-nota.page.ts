@@ -16,7 +16,9 @@ import { FormsModule } from '@angular/forms';
 export class AddNotaPage {
   materia!: Materia;
   nota: Nota = {
-      fechaEntrega: '', nota: 0, corte: '',
+      fechaEntrega: '', 
+      nota: 0, 
+      corte: '',
       descripcion: ''
   };
 
@@ -35,23 +37,20 @@ export class AddNotaPage {
 
   async agregarNota() {
     if (this.materia) {
-      this.materia.notas = this.materia.notas || [];
-      this.materia.notas.push(this.nota);
-      await this.materiasService.updateMateria(this.materia);
+      await this.materiasService.addNota(this.materia.codigo, this.nota);
       this.router.navigate(['/materia-detail', this.materia.codigo]);
       const alert = await this.alertController.create({
-        header: 'Nota agregada',
+        header: 'Nota Agregada',
         message: 'La nota ha sido registrada correctamente.',
         buttons: [
           {
             text: 'OK',
             handler: () => {
-              window.location.reload(); 
+              window.location.reload();
             }
           }
         ]
       });
-  
       await alert.present();
     }
   }

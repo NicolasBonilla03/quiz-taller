@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
 import { Materia } from '../models/materia.model';
+import { Nota } from '../models/nota.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,15 +14,13 @@ export class MateriasService {
   }
 
   async init() {
-    // Asegúrate de que la base de datos se cree
     await this.storage.create();
-    // Luego carga las materias desde el almacenamiento
     const storedMaterias = await this.storage.get('materias');
     this.materias = storedMaterias ? JSON.parse(storedMaterias) : [];
   }
+  
 
   async getMaterias() {
-    // Actualiza el estado de materias al obtenerlas
     const storedMaterias = await this.storage.get('materias');
     this.materias = storedMaterias ? JSON.parse(storedMaterias) : [];
     return this.materias;
@@ -30,6 +29,18 @@ export class MateriasService {
   async addMateria(materia: Materia) {
     this.materias.push(materia);
     await this.saveToStorage();
+  }
+  
+  async addNota(codigoMateria: string, nota: Nota) {
+    const materia = this.materias.find(m => m.codigo === codigoMateria);
+    if (materia) {
+      // Si la materia existe, agregamos la nota
+      if (!materia.notas) {
+        materia.notas = []; // Inicializa el array si no existe
+      }
+      materia.notas.push(nota);
+      await this.saveToStorage(); // Guarda el cambio en el almacenamiento
+    }
   }
 
   async updateMateria(materia: Materia) {
@@ -52,8 +63,8 @@ export class MateriasService {
   async deleteNota(codigoMateria: string, index: number) {
     const materia = this.materias.find(m => m.codigo === codigoMateria);
     if (materia && materia.notas) {
-      materia.notas.splice(index, 1); // Eliminar la nota en el índice dado
-      await this.saveToStorage(); // Guardar los cambios en el almacenamiento
+      materia.notas.splice(index, 1);
+      await this.saveToStorage(); 
     }
   }
 
@@ -62,9 +73,9 @@ export class MateriasService {
     if (materia && (!materia.notas || materia.notas.length === 0)) {
       this.materias = this.materias.filter(m => m.codigo !== codigo);
       await this.saveToStorage();
-      return true; // Materia eliminada con éxito
+      return true;
     }
-    return false; // La materia no puede ser eliminada porque tiene notas
+    return false;
   }
   
   

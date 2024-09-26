@@ -1,7 +1,7 @@
 export interface Nota {
-  corte: string;  // Ejemplo: "Primer Corte", "Segundo Corte", etc.
+  corte: string;  
   fechaEntrega: string;
   descripcion: string;
-  nota?: number;  // Nota entre 0 y 5
+  nota?: number;
   observaciones?: string;
 }

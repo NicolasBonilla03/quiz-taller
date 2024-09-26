@@ -15,9 +15,7 @@
           <p *ngIf="isMateriaAprobada(calcularPromedio(materia))" style="color: green;">Materia Aprobada</p>
           <p *ngIf="!isMateriaAprobada(calcularPromedio(materia))" style="color: red;">Materia Reprobada</p>
         </ion-label>
-        <!-- Botón para ver detalles de la materia -->
         <ion-button routerLink="/materia-detail/{{materia.codigo}}">Ver detalles</ion-button>
-        <!-- Botón para confirmar la eliminación de la materia -->
         <ion-button color="danger" (click)="confirmDeleteMateria(materia.codigo)">Eliminar</ion-button>
       </ion-item>
     </ion-list>

@@ -1,49 +1,48 @@
 <ion-header translucent="true">
-    <ion-toolbar>
-      <ion-title>Editar Nota</ion-title>
-    </ion-toolbar>
-  </ion-header>
-<ion-content *ngIf="materia?.notas">
-    <ion-card>
-        <ion-card-content>
-            <ion-list>
-                <ion-item *ngFor="let nota of materia.notas; let i = index">
-                  <ion-label>
-                    
-                      <ion-item>
-                          <ion-label position="stacked">Fecha de entrega</ion-label>
-                          <ion-input [(ngModel)]="nota.fechaEntrega" type="date" name="fechaEntrega"></ion-input>
-                        </ion-item>
-      
-                      <ion-item>
-                          <ion-label position="stacked">Descripcion</ion-label>
-                          <ion-input [(ngModel)]="nota.descripcion"></ion-input>
-                        </ion-item>
-                
-                        <ion-item>
-                          <ion-label position="stacked">Nota</ion-label>
-                          <ion-input [(ngModel)]="nota.nota" type="number" name="nota" min="0" max="5" step="0.01"></ion-input>
-                        </ion-item>
-      
-                        <ion-item>
-                          <ion-label position="stacked">Observaciones</ion-label>
-                          <ion-input [(ngModel)]="nota.observaciones"  name="observaciones"></ion-input>
-                        </ion-item>
-      
-                        <ion-item>
-                          <ion-label position="stacked">Corte</ion-label>
-                          <ion-select [(ngModel)]="nota.corte" name="corte">
-                          <ion-select-option value="Primer 20%">Primer 20%</ion-select-option>
-                          <ion-select-option value="Segundo 20%">Segundo 20%</ion-select-option>
-                          <ion-select-option value="Tercer 20%">Tercer 20%</ion-select-option>
-                          <ion-select-option value="40% Final">40% Final</ion-select-option>
-                          </ion-select>
-                        </ion-item>
+  <ion-toolbar>
+    <ion-title>Editar Nota</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content *ngIf="nota">
+  <form (ngSubmit)="guardarCambios()" [formGroup]="requisitos">
+  <ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="stacked">Fecha de entrega</ion-label>
+        <ion-input [(ngModel)]="nota.fechaEntrega" type="date" name="fechaEntrega" formControlName="fechaEntrega"></ion-input>
+        <p style="color: red; text-align: right; size: 1em;"*ngIf="requisitos.get('fechaEntrega')?.getError('required')">Campo Obligatorio</p>
+      </ion-item>
 
-                  </ion-label>                
-                </ion-item>
-              </ion-list>
-              <ion-button expand="full" (click)="guardarCambios()">Guardar Cambios</ion-button>
-        </ion-card-content>
-    </ion-card>
+      <ion-item>
+        <ion-label position="stacked">Descripción</ion-label>
+        <ion-input [(ngModel)]="nota.descripcion" formControlName="descripcion"></ion-input>
+        <p style="color: red; text-align: right; size: 1em;"*ngIf="requisitos.get('descripcion')?.getError('required')">Campo Obligatorio</p>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Nota</ion-label>
+        <ion-input [(ngModel)]="nota.nota" type="number" name="nota" min="0" max="5" step="0.01" formControlName="nota"></ion-input>
+        <p style="color: red; text-align: right; size: 1em;"*ngIf="requisitos.get('nota')?.getError('max')">Nota maxima: 5</p>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Observaciones</ion-label>
+        <ion-input [(ngModel)]="nota.observaciones" name="observaciones" formControlName="observaciones"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Corte</ion-label>
+        <ion-select [(ngModel)]="nota.corte" name="corte" formControlName="corte">
+          <ion-select-option value="Primer 20%">Primer 20%</ion-select-option>
+          <ion-select-option value="Segundo 20%">Segundo 20%</ion-select-option>
+          <ion-select-option value="Tercer 20%">Tercer 20%</ion-select-option>
+          <ion-select-option value="40% Final">40% Final</ion-select-option>
+          <p style="color: red; text-align: right; size: 1em;"*ngIf="requisitos.get('corte')?.getError('required')">Campo Obligatorio</p>
+        </ion-select>
+      </ion-item>
+
+      <ion-button expand="full" (click)="guardarCambios()">Guardar Cambios</ion-button>
+    </ion-card-content>
+  </ion-card>
+</form>
 </ion-content>

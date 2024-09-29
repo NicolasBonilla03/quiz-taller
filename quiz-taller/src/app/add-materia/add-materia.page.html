@@ -1,33 +1,28 @@
 <ion-header translucent="true">
     <ion-toolbar>
       <ion-title>Agregar Materia</ion-title>
+      <ion-button routerLink="/home">Inicio</ion-button>
     </ion-toolbar>
   </ion-header>
   
   <ion-content fullscreen>
-    <form (ngSubmit)="addMateria()">
-      <ion-item>
-        <ion-label position="floating">Nombre</ion-label>
-        <ion-input type="text" [(ngModel)]="materia.nombre" name="nombre" required></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Código</ion-label>
-        <ion-input type="text" [(ngModel)]="materia.codigo" name="codigo" required></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Semestre</ion-label>
-        <ion-input type="text" [(ngModel)]="materia.semestre" name="semestre" required></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Horario</ion-label>
-        <ion-input type="text" [(ngModel)]="materia.horario" name="horario"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Observaciones</ion-label>
-        <ion-input type="text" [(ngModel)]="materia.observaciones" name="observaciones"></ion-input>
-      </ion-item>
+    <form (ngSubmit)="addMateria()" [formGroup]="requisitos">
+        <ion-input label="Nombre" [(ngModel)]="materia.nombre" name="nombre" formControlName="nombre"></ion-input>
+        <p style="color: red; text-align: right; size: 1em;"*ngIf="requisitos.get('nombre')?.getError('required')">Campo Obligatorio</p>
+        
+        <ion-input label="Codigo" [(ngModel)]="materia.codigo" name="codigo" formControlName="codigo"></ion-input>
+        <p style="color: red; text-align: right; size: 1em;"*ngIf="requisitos.get('codigo')?.getError('required')">Campo Obligatorio</p>
+
+        <ion-input label="Semestre" type="number" [(ngModel)]="materia.semestre" name="semestre" formControlName="semestre" min="1" max="16" step="1"></ion-input>
+        <p style="color: red; text-align: right; size: 1em;"*ngIf="requisitos.get('semestre')?.getError('min')">El numero debe ser mayor a 0</p>
+        <p style="color: red; text-align: right; size: 1em;"*ngIf="requisitos.get('semestre')?.getError('max')">El numero debe ser menor a 16</p>
+
+        <ion-input label="Horario" [(ngModel)]="materia.horario" name="horario"formControlName="horario"></ion-input>
+        <p style="color: red; text-align: right; size: 1em;"*ngIf="requisitos.get('horario')?.getError('required')">Campo Obligatorio</p>
+
+        <ion-input label="Observaciones" [(ngModel)]="materia.observaciones" [ngModelOptions]="{standalone: true}" name="observaciones" ></ion-input>
       
-      <ion-button type="submit" expand="full" routerLink="/materia-list">Guardar Materia</ion-button>
+      <ion-button type="submit" expand="full" routerLink="/materia-list" [disabled]="requisitos.invalid" >Guardar Materia</ion-button>
     </form>
     <ion-button expand="full" routerLink="/materia-list">Cancelar</ion-button>
   </ion-content>

@@ -2,38 +2,42 @@
     <ion-toolbar>
       <ion-title>Agregar Nota</ion-title>
       <ion-buttons slot="end">
-        <ion-button (click)="agregarNota()">Guardar</ion-button>
+        <ion-button (click)="agregarNota()" [disabled]="requisitos.invalid">Guardar</ion-button>
       </ion-buttons>
     </ion-toolbar>
   </ion-header>
   
   <ion-content>
-    <form>
+    <form [formGroup]="requisitos">
         <br>
       <ion-item>
-        <ion-input type="date" [(ngModel)]="nota.fechaEntrega" name="fechaEntrega">Fecha de entrega</ion-input>
+        <ion-input label="Fecha de entrega" type="date" [(ngModel)]="nota.fechaEntrega" name="fechaEntrega" formControlName="fechaEntrega"></ion-input>
+        <p style="color: red; text-align: right; size: 1em;"*ngIf="requisitos.get('fechaEntrega')?.getError('required')">Campo Obligatorio</p>
       </ion-item>
   
       <ion-item>
-        <ion-input [(ngModel)]="nota.descripcion" name="descripcion">Descripción</ion-input>
+        <ion-input label="Descripción"[(ngModel)]="nota.descripcion" name="descripcion" formControlName="descripcion"></ion-input>
+        <p style="color: red; text-align: right; size: 1em;"*ngIf="requisitos.get('descripcion')?.getError('required')">Campo Obligatorio</p>
       </ion-item>
   
       <ion-item>
-        <ion-input type="number" [(ngModel)]="nota.nota" name="nota" min="0" max="5" step="0.01">Nota</ion-input>
+        <ion-input label="Nota" type="number" [(ngModel)]="nota.nota" name="nota" min="0" max="5" step="0.01" formControlName="nota"></ion-input>
+        <p style="color: red; text-align: right; size: 1em;"*ngIf="requisitos.get('nota')?.getError('max')">Nota maxima: 5</p>
       </ion-item>
-  
+
       <ion-item>
-        <ion-input [(ngModel)]="nota.observaciones" name="observaciones">Observaciones</ion-input>
+        <ion-input label="Observaciones" type="text" [(ngModel)]="nota.observaciones" [ngModelOptions]="{standalone: true}" name="observaciones"></ion-input>
+
       </ion-item>
-  
+
       <ion-item>
-        <ion-label>Corte </ion-label>
-        <ion-select [(ngModel)]="nota.corte" name="corte">
+        <ion-select label="Corte"[(ngModel)]="nota.corte" name="corte" formControlName="corte">
           <ion-select-option value="Primer 20%">Primer 20%</ion-select-option>
           <ion-select-option value="Segundo 20%">Segundo 20%</ion-select-option>
           <ion-select-option value="Tercer 20%">Tercer 20%</ion-select-option>
           <ion-select-option value="40% Final">40% Final</ion-select-option>
         </ion-select>
+        <p style="color: red; text-align: right; size: 1em;"*ngIf="requisitos.get('corte')?.getError('required')">Campo Obligatorio</p>
       </ion-item>
     </form>
   </ion-content>

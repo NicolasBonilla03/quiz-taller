@@ -17,6 +17,7 @@ const routes: Routes = [
   { path: 'add-materia', component: AddMateriaPage },
   { path: 'edit-materia/:codigo', component: EditMateriaPage },
   { path: 'edit-nota/:codigo', component: EditNotaPage},
+  { path: 'edit-nota/:codigo/:index', component: EditNotaPage},
 ];
 
 @NgModule({

@@ -2,6 +2,8 @@
   <ion-toolbar>
     <ion-title>{{ materia?.nombre }}</ion-title>
     <ion-button (click)="actualizar()">Actualizar pagina</ion-button>
+    <ion-button routerLink="/home">Inicio</ion-button>
+    
   </ion-toolbar>
 </ion-header>
 
@@ -20,7 +22,6 @@
       <p *ngIf="!isMateriaAprobada()" style="color: red;">Reprobada</p>
     </ion-card-content>
     
-    <!-- Botón para editar la materia y las notas -->
     <ion-button routerLink="/add-nota/{{materia.codigo}}">Agregar Nota</ion-button>
     <ion-button routerLink="/edit-materia/{{materia.codigo}}">Modificar Materia</ion-button>
   </ion-card>
@@ -42,7 +43,7 @@
                 <p>Observaciones: {{ nota.observaciones || 'N/A' }}</p>
                 <p>Corte: {{ nota.corte }}</p>
               </ion-label>
-              <ion-button routerLink="/edit-nota/{{materia!.codigo}}">Modificar nota</ion-button>
+              <ion-button routerLink="/edit-nota/{{materia!.codigo}}/{{i}}">Modificar nota</ion-button>
               <ion-button (click)="eliminarNota(materia!.codigo, i)">Eliminar</ion-button>
             </ion-item>
           </ion-list>

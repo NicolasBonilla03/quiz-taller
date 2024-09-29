@@ -4,14 +4,15 @@ import { MateriasService } from '../services/materias.service';
 import { Nota } from '../models/nota.model';
 import { Materia } from '../models/materia.model';
 import { AlertController, IonicModule } from '@ionic/angular';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-add-nota',
   templateUrl: './add-nota.page.html',
   styleUrls: ['./add-nota.page.scss'],
   standalone: true,
-  imports: [IonicModule, FormsModule]
+  imports: [IonicModule, FormsModule, ReactiveFormsModule, CommonModule]
 })
 export class AddNotaPage {
   materia!: Materia;
@@ -19,8 +20,17 @@ export class AddNotaPage {
       fechaEntrega: '', 
       nota: 0, 
       corte: '',
-      descripcion: ''
+      descripcion: '',
+      observaciones: ''
   };
+
+  requisitos: FormGroup = new FormGroup({
+    fechaEntrega: new FormControl ('', [Validators.required]),
+    nota: new FormControl (0, [Validators.max(5)]),
+    corte: new FormControl ('', [Validators.required]),
+    descripcion: new FormControl ('', [Validators.required]),
+    observaciones: new FormControl ('')
+  })
 
   constructor(
     private route: ActivatedRoute,

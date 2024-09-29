@@ -9,30 +9,41 @@
       <ion-card-header>
         <ion-card-title>Editar {{ materia.nombre }}</ion-card-title>
       </ion-card-header>
-  
+      <form (ngSubmit)="guardarCambios()"[formGroup]="requisitos">
       <ion-card-content>
         <ion-item>
           <ion-label position="stacked">Nombre</ion-label>
-          <ion-input [(ngModel)]="materia.nombre"></ion-input>
+          <ion-input [(ngModel)]="materia.nombre" name="nombre" formControlName="nombre"></ion-input>
+          <p style="color: red; text-align: right; size: 1em;"*ngIf="requisitos.get('nombre')?.getError('required')">Campo Obligatorio</p>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Codigo</ion-label>
+          <ion-input type="text" [(ngModel)]="materia.codigo" name="codigo" formControlName="codigo" readonly></ion-input>
+          <p style="color: red; text-align: right; size: 1em;"*ngIf="requisitos.get('codigo')?.getError('required')">Campo Obligatorio</p>
         </ion-item>
 
         <ion-item>
           <ion-label position="stacked">Semestre</ion-label>
-          <ion-input [(ngModel)]="materia.semestre"></ion-input>
+          <ion-input [(ngModel)]="materia.semestre" name="semestre" formControlName="semestre"></ion-input>
+          <p style="color: red; text-align: right; size: 1em;"*ngIf="requisitos.get('semestre')?.getError('min')">El numero debe ser mayor a 0</p>
+          <p style="color: red; text-align: right; size: 1em;"*ngIf="requisitos.get('semestre')?.getError('max')">El numero debe ser menor a 16</p>
         </ion-item>
   
         <ion-item>
           <ion-label position="stacked">Horario</ion-label>
-          <ion-input [(ngModel)]="materia.horario"></ion-input>
+          <ion-input [(ngModel)]="materia.horario" name="horario" formControlName="horario"></ion-input>
+          <p style="color: red; text-align: right; size: 1em;"*ngIf="requisitos.get('horario')?.getError('required')">Campo Obligatorio</p>
         </ion-item>
 
         <ion-item>
             <ion-label position="stacked">Observaciones</ion-label>
-            <ion-input [(ngModel)]="materia.observaciones"></ion-input>
+            <ion-input [(ngModel)]="materia.observaciones" [ngModelOptions]="{standalone: true}" name="observaciones" ></ion-input>
           </ion-item>
   
-        <ion-button expand="full" (click)="guardarCambios()">Guardar Cambios</ion-button>
+        <ion-button expand="full" type="submit" [disabled]="requisitos.invalid">Guardar Cambios</ion-button>
       </ion-card-content>
+    </form>
     </ion-card>
   </ion-content>
   

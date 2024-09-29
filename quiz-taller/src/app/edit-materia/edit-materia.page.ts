@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MateriasService } from '../services/materias.service';
 import { Materia } from '../models/materia.model';
 import { Nota } from '../models/nota.model';
@@ -12,10 +12,10 @@ import { CommonModule } from '@angular/common';
   templateUrl: './edit-materia.page.html',
   styleUrls: ['./edit-materia.page.scss'],
   standalone: true,
-  imports: [IonicModule, FormsModule, CommonModule, ReactiveFormsModule]
+  imports: [IonicModule, FormsModule, CommonModule, ReactiveFormsModule, RouterLink]
 })
 export class EditMateriaPage implements OnInit {
-  materia!: Materia;
+  materia?: Materia;
 
 
   requisitos: FormGroup = new FormGroup({
@@ -39,7 +39,7 @@ export class EditMateriaPage implements OnInit {
   }
 
   async guardarCambios() {
-    await this.materiasService.updateMateria(this.materia);
+    await this.materiasService.updateMateria(this.materia!);
     const alert = await this.alertController.create({
       header: 'Cambios guardados',
       message: 'Los datos de la materia se han actualizado correctamente.',
@@ -47,7 +47,7 @@ export class EditMateriaPage implements OnInit {
         {
           text: 'OK',
           handler: () => {
-            this.router.navigate(['/materia-detail', this.materia.codigo]);
+            this.router.navigate(['/materia-detail', this.materia!.codigo]);
           }
         }
       ]

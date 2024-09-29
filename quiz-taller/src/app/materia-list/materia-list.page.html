@@ -1,15 +1,17 @@
 <ion-header translucent="true">
   <ion-toolbar>
     <ion-title>Lista de Materias</ion-title>
-    <ion-button routerLink="/home">Volver</ion-button>
+  
+    <ion-buttons slot="end">
+      <ion-button routerLink="/home">Volver</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content fullscreen>
-  <!-- Grid para poner la barra de búsqueda y el filtro en la misma línea -->
+
   <ion-grid>
     <ion-row>
-      <!-- Barra de búsqueda -->
       <ion-col size="12" size-md="7" size-lg="7">
         <ion-searchbar 
           [(ngModel)]="searchTerm" 
@@ -18,7 +20,6 @@
         </ion-searchbar>
       </ion-col>
 
-      <!-- Filtro de semestre -->
       <ion-col size="12" size-md="3" size-lg="3">
         <ion-item>
           <ion-label>Semestre</ion-label>
@@ -30,14 +31,12 @@
         </ion-item>
       </ion-col>
 
-      <!-- Botón para mostrar todas las materias -->
       <ion-col size="12" size-md="2" size-lg="2">
         <ion-button expand="full" (click)="mostrarTodasMaterias()">Mostrar todas las materias</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
 
-  <!-- Lista de materias filtradas -->
   <ion-list>
     <ion-item *ngFor="let materia of materiasFiltradas">
       <ion-label>

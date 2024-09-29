@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MateriasService } from '../services/materias.service';
 import { Materia } from '../models/materia.model';
 import { Nota } from '../models/nota.model';
@@ -12,10 +12,10 @@ import { CommonModule } from '@angular/common';
   templateUrl: './edit-nota.page.html',
   styleUrls: ['./edit-nota.page.scss'],
   standalone: true,
-  imports: [IonicModule, FormsModule, CommonModule, ReactiveFormsModule]
+  imports: [IonicModule, FormsModule, CommonModule, ReactiveFormsModule, RouterLink]
 })
 export class EditNotaPage implements OnInit {
-  materia!: Materia;
+  materia?: Materia;
   nota!: Nota; 
   codigoMateria: string = '';
   indexNota: number = -1;
@@ -58,7 +58,7 @@ export class EditNotaPage implements OnInit {
           {
             text: 'OK',
             handler: () => {
-              this.router.navigate(['/materia-detail', this.materia.codigo]);
+              this.router.navigate(['/materia-detail', this.materia!.codigo]);
             }
           }
         ]

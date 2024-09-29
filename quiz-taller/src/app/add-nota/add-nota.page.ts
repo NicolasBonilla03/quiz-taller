@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MateriasService } from '../services/materias.service';
 import { Nota } from '../models/nota.model';
 import { Materia } from '../models/materia.model';
@@ -12,10 +12,10 @@ import { CommonModule } from '@angular/common';
   templateUrl: './add-nota.page.html',
   styleUrls: ['./add-nota.page.scss'],
   standalone: true,
-  imports: [IonicModule, FormsModule, ReactiveFormsModule, CommonModule]
+  imports: [IonicModule, FormsModule, ReactiveFormsModule, CommonModule, RouterLink]
 })
 export class AddNotaPage {
-  materia!: Materia;
+  materia?: Materia;
   nota: Nota = {
       fechaEntrega: '', 
       nota: 0, 

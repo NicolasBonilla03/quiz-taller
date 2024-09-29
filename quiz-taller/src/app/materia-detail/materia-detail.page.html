@@ -1,8 +1,10 @@
 <ion-header translucent="true">
   <ion-toolbar>
     <ion-title>{{ materia?.nombre }}</ion-title>
-    <ion-button (click)="actualizar()">Actualizar pagina</ion-button>
-    <ion-button routerLink="/home">Inicio</ion-button>
+    <ion-buttons slot="end" >
+      <ion-button (click)="actualizar()">Actualizar pagina</ion-button>
+      <ion-button routerLink="/home">Inicio</ion-button>
+    </ion-buttons>
     
   </ion-toolbar>
 </ion-header>

@@ -16,6 +16,11 @@ export class MateriaDetailPage implements OnInit {
     materia: Materia | undefined;
     i!: number;
 
+    promedioPrimerCorte: number = 0;
+    promedioSegundoCorte: number = 0;
+    promedioTercerCorte: number = 0;
+    promedioFinalCorte: number = 0;
+
     constructor(
       private route: ActivatedRoute,
       private materiasService: MateriasService
@@ -35,23 +40,23 @@ export class MateriaDetailPage implements OnInit {
       if (!this.materia?.notas || this.materia.notas.length === 0) {
         return 0;
       }
-    
+  
       const primerCorteNotas = this.materia.notas.filter(nota => nota.corte === 'Primer 20%');
       const segundoCorteNotas = this.materia.notas.filter(nota => nota.corte === 'Segundo 20%');
       const tercerCorteNotas = this.materia.notas.filter(nota => nota.corte === 'Tercer 20%');
       const finalCorteNotas = this.materia.notas.filter(nota => nota.corte === '40% Final');
-    
-      const promedioPrimerCorte = this.calcularPromedioPorCorte(primerCorteNotas);
-      const promedioSegundoCorte = this.calcularPromedioPorCorte(segundoCorteNotas);
-      const promedioTercerCorte = this.calcularPromedioPorCorte(tercerCorteNotas);
-      const promedioFinalCorte = this.calcularPromedioPorCorte(finalCorteNotas);
-    
+  
+      this.promedioPrimerCorte = this.calcularPromedioPorCorte(primerCorteNotas);
+      this.promedioSegundoCorte = this.calcularPromedioPorCorte(segundoCorteNotas);
+      this.promedioTercerCorte = this.calcularPromedioPorCorte(tercerCorteNotas);
+      this.promedioFinalCorte = this.calcularPromedioPorCorte(finalCorteNotas);
+  
       const promedioPonderado = 
-        (promedioPrimerCorte * 0.2) +
-        (promedioSegundoCorte * 0.2) +
-        (promedioTercerCorte * 0.2) +
-        (promedioFinalCorte * 0.4);
-    
+        (this.promedioPrimerCorte * 0.2) +
+        (this.promedioSegundoCorte * 0.2) +
+        (this.promedioTercerCorte * 0.2) +
+        (this.promedioFinalCorte * 0.4);
+  
       return promedioPonderado;
     }
     

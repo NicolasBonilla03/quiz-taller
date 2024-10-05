@@ -23,6 +23,12 @@
       <p *ngIf="isMateriaAprobada()" style="color: green;">Aprobada</p>
       <p *ngIf="!isMateriaAprobada()" style="color: red;">Reprobada</p>
     </ion-card-content>
+    <ion-card-content>
+      <p>Promedio Primer corte: {{promedioPrimerCorte}}</p>
+      <p>Promedio Segundo corte: {{promedioSegundoCorte}}</p>
+      <p>Promedio Tercer corte: {{promedioTercerCorte}}</p>
+      <p>Promedio corte final: {{promedioFinalCorte}}</p>
+    </ion-card-content>
     
     <ion-button routerLink="/add-nota/{{materia.codigo}}">Agregar Nota</ion-button>
     <ion-button routerLink="/edit-materia/{{materia.codigo}}">Modificar Materia</ion-button>
